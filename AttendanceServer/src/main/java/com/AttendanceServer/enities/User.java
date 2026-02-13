@@ -1,5 +1,6 @@
 package com.AttendanceServer.enities;
 
+import com.AttendanceServer.dto.UserDTO;
 import com.AttendanceServer.enums.UserRole;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,4 +23,15 @@ public class User {
     private String name;
 
     private UserRole userRole;
+
+    public UserDTO getDto(){
+        UserDTO userDTO = new UserDTO();
+
+        userDTO.setId(id);
+        userDTO.setName(name);
+        userDTO.setUserRole(userRole);
+        userDTO.setEmail(email);
+
+        return userDTO;
+    }
 }
