@@ -1,11 +1,15 @@
 package com.AttendanceServer.service;
 
+import com.AttendanceServer.dto.UserDTO;
 import com.AttendanceServer.enities.User;
 import com.AttendanceServer.enums.UserRole;
 import com.AttendanceServer.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +34,14 @@ public class AuthService {
         }else{
             System.out.println("Admin User Already exists.");
         }
+    }
+
+    public UserDTO login(UserDTO userDTO){
+        Optional<User> dbUser = userRepository.findByEmail(userDTO.getEmail());
+
+        if(dbUser.isPresent() && userDTO.getPassword().equals(dbUser.get().getPassword())){
+            return dbUser.get().getDto();
+        }
+        return null;
     }
 }
