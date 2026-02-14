@@ -1,6 +1,80 @@
-<!--&lt;!&ndash; NG-ZORRO &ndash;&gt;-->
-<!--<a href="https://github.com/NG-ZORRO/ng-zorro-antd" target="_blank" style="display: flex;align-items: center;justify-content: center;height: 100%;width: 100%;">-->
-<!--  <img height="300" alt="logo" src="https://img.alicdn.com/tfs/TB1X.qJJgHqK1RjSZFgXXa7JXXa-89-131.svg">-->
-<!--</a>-->
-<!--<h1>Suman</h1>-->
-<router-outlet></router-outlet>
+<nz-layout>
+  <nz-sider nzCollapsible nzWidth="200px" *ngIf="!isAdminLoggedIn && !isEmploeeLoggedIn && !isManagerLoggedIn">
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item routerLink="/">
+        <span nz-icon nzType="login"></span>
+        <span><strong>Login</strong></span>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-sider nzCollapsible nzWidth="200px" *ngIf="isAdminLoggedIn">
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item routerLink="/admin/dashboard">
+        <span nz-icon nzType="book"></span>
+        <span><strong>Dashboard</strong></span>
+      </li>
+      <li nz-menu-item routerLink="/admin/attendance-records">
+        <span nz-icon nzType="calendar"></span>
+        <span><strong>Attendance Records</strong></span>
+      </li>
+      <li nz-menu-item routerLink="/admin/manage-projects">
+        <span nz-icon nzType="database"></span>
+        <span><strong>Projects</strong></span>
+      </li>
+      <li nz-menu-item routerLink="/admin/manage-managers">
+        <span nz-icon nzType="user"></span>
+        <span><strong>Managers</strong></span>
+      </li>
+      <li nz-menu-item routerLink="/admin/manage-employees">
+        <span nz-icon nzType="team"></span>
+        <span><strong>Employees</strong></span>
+      </li>
+      <li nz-menu-item>
+        <span nz-icon nzType="logout"></span>
+        <span><strong>Logout</strong></span>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-sider nzCollapsible nzWidth="200px" *ngIf="isEmploeeLoggedIn">
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item routerLink="/employee/dashboard">
+        <span nz-icon nzType="apartment"></span>
+        <span><strong>Dashboard</strong></span>
+      </li>
+      <li nz-menu-item>
+        <span nz-icon nzType="logout"></span>
+        <span><strong>Logout</strong></span>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-sider nzCollapsible nzWidth="200px" *ngIf="isManagerLoggedIn">
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item routerLink="/manager/dashboard">
+        <span nz-icon nzType="pull-request"></span>
+        <span><strong>Dashboard</strong></span>
+      </li>
+      <li nz-menu-item routerLink="/manager/leaves">
+        <span nz-icon nzType="pull-request"></span>
+        <span><strong>Manage Leaves</strong></span>
+      </li>
+      <li nz-menu-item>
+        <span nz-icon nzType="logout"></span>
+        <span><strong>Logout</strong></span>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-layout>
+    <nz-content style="min-height: 93vh;">
+      <router-outlet></router-outlet>
+    </nz-content>
+    <nz-footer></nz-footer>
+  </nz-layout>
+</nz-layout>
