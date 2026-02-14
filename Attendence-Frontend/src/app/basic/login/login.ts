@@ -2,15 +2,16 @@ import { Component } from '@angular/core';
 import { SharedModule } from '../../shared/shared-module';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzFormControlComponent, NzFormDirective, NzFormItemComponent } from 'ng-zorro-antd/form';
-import {NzInputDirective, NzInputGroupComponent, NzInputWrapperComponent} from 'ng-zorro-antd/input';
+import { NzInputDirective, NzInputGroupComponent, NzInputWrapperComponent } from 'ng-zorro-antd/input';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconModule, provideNzIcons } from 'ng-zorro-antd/icon';
 
 // 👉 IMPORT ICONS HERE
 import { UserOutline, LockOutline } from '@ant-design/icons-angular/icons';
-import {Auth} from '../basic-services/auth';
-import {NzMessageService} from 'ng-zorro-antd/message';
+import { Auth } from '../basic-services/auth';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { UserStorage } from '../basic-services/user-storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,7 @@ import { UserStorage } from '../basic-services/user-storage';
     NzInputGroupComponent, // ✅ required
     NzButtonComponent,
     NzIconModule,
-    NzInputWrapperComponent
+    // NzInputWrapperComponent
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',
@@ -33,10 +34,12 @@ import { UserStorage } from '../basic-services/user-storage';
 class Login {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder,
-              private authService:Auth,
-              private message: NzMessageService
-              ) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: Auth,
+    private message: NzMessageService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -45,12 +48,16 @@ class Login {
     });
   }
 
-  submitForm(){
-    this.authService.loginUser(this.loginForm.value).subscribe(res=>{
+  submitForm() {
+    this.authService.loginUser(this.loginForm.value).subscribe(res => {
       UserStorage.saveUser(res);
-      console.log(res);
+
+      if (UserStorage.isAdminLoggedIn()){
+        this.router.navigateByUrl('/admin/dashboard')
+      }
+        console.log(res);
     }, error => {
-      this.message.error(`Bad Credentials`, {nzDuration: 5000})
+      this.message.error(`Bad Credentials`, { nzDuration: 5000 })
     })
   }
 }
