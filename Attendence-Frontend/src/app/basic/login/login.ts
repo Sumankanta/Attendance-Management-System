@@ -18,14 +18,6 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [
     SharedModule,
-    ReactiveFormsModule,
-    NzFormControlComponent,
-    NzFormItemComponent,
-    NzFormDirective,
-    NzInputDirective,
-    NzInputGroupComponent, // ✅ required
-    NzButtonComponent,
-    NzIconModule,
     // NzInputWrapperComponent
   ],
   templateUrl: './login.html',

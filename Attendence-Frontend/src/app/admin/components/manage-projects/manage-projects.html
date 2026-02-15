@@ -1,0 +1,101 @@
+<div class="container mt-5">
+
+  <div class="row g-4">
+
+    <!-- LEFT: CREATE PROJECT -->
+    <div class="col-12 col-lg-5">
+
+      <nz-card nzTitle="Create New Project" class="shadow-sm">
+
+        <form
+          nz-form
+          [formGroup]="projectForm"
+          nzLayout="vertical"
+          (ngSubmit)="submitForm()"
+        >
+
+          <!-- Name -->
+          <nz-form-item>
+            <nz-form-label nzRequired>Project Name</nz-form-label>
+            <nz-form-control nzErrorTip="Enter project name">
+              <input
+                nz-input
+                formControlName="name"
+                placeholder="Enter project name"
+              />
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- Duration -->
+          <nz-form-item>
+            <nz-form-label nzRequired>Duration</nz-form-label>
+            <nz-form-control nzErrorTip="Enter duration">
+              <input
+                nz-input
+                formControlName="duration"
+                placeholder="Example: 3 Months"
+              />
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- Date -->
+          <nz-form-item>
+            <nz-form-label nzRequired>Start Date</nz-form-label>
+            <nz-form-control nzErrorTip="Select date">
+              <nz-date-picker
+                class="w-100"
+                formControlName="startDate"
+              ></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+
+          <!-- Button -->
+          <button
+            nz-button
+            nzType="primary"
+            nzSize="large"
+            nzBlock
+            [disabled]="projectForm.invalid"
+          >
+            Add Project
+          </button>
+
+        </form>
+
+      </nz-card>
+    </div>
+
+    <!-- RIGHT: PROJECT LIST -->
+    <div class="col-12 col-lg-7">
+
+      <nz-card nzTitle="Project List" class="shadow-sm">
+
+        <div *ngIf="projects.length; else empty">
+
+          <div
+            class="project-item mb-3 p-3 border rounded"
+            *ngFor="let project of projects"
+          >
+            <div><strong>ID:</strong> {{ project.id }}</div>
+            <div><strong>Name:</strong> {{ project.name }}</div>
+            <div>
+              <strong>Start Date:</strong>
+              {{ project.startDate | date:'mediumDate' }}
+            </div>
+          </div>
+
+        </div>
+
+        <ng-template #empty>
+          <p class="text-muted text-center m-0">
+            No projects added yet
+          </p>
+        </ng-template>
+
+      </nz-card>
+
+    </div>
+
+  </div>
+
+</div>
