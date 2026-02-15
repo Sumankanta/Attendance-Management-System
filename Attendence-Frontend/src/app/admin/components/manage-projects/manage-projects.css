@@ -1,0 +1,12 @@
+body {
+  background: #f5f7fa;
+}
+
+.project-item {
+  background: #fafafa;
+  transition: 0.2s;
+}
+
+.project-item:hover {
+  background: #f0f2f5;
+}

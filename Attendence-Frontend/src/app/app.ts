@@ -29,4 +29,9 @@ export class App {
       this.isAdminLoggedIn = UserStorage.isAdminLoggedIn();
     });
   }
+
+  logout(){
+    UserStorage.signOut();
+    this.router.navigateByUrl('/');
+  }
 }
