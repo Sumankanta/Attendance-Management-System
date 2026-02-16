@@ -26,4 +26,8 @@ export class Admin {
   getManagers(): Observable<any>{
     return this.http.get(baseUrl + "/api/admin/managers")
   }
+
+  getEmployees(): Observable<any>{
+    return this.http.get(baseUrl + "/api/admin/employee")
+  }
 }
