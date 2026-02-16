@@ -1,0 +1,51 @@
+<div style="margin-top: 10px;">
+  <div nz-row>
+    <div nz-col nzFlex="2">
+      <nz-card nzType="inner" style="margin-top: 16px;" nzTitle="Post New Manager">
+        <form nz-form [formGroup]="managerForm" (ngSubmit)="submitForm()">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input the name!">
+              <input type="text" nz-input formControlName="name" placeholder="Enter the name"/>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input the email!">
+              <input type="email" nz-input formControlName="email" placeholder="Enter the email"/>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input the password!">
+              <input type="password" nz-input formControlName="password" placeholder="Enter the password"/>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input the project!">
+              <nz-select nzAllowClear nzPlaceHolder="Select the project" formControlName="projectId">
+                <nz-option *ngFor="let project of project"
+                [nzLabel]="project.name" [nzValue]="project.id"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <button nz-button nzType="primary" nzBlock class="w-100" [disabled]="managerForm.invalid">Add New Manager</button>
+        </form>
+      </nz-card>
+    </div>
+    <div nz-col nzFlex="3" style="margin-left: 20px;">
+      <nz-card nzType="inner" style="margin-top: 16px;" nzTitle="All Managers">
+        <div nz-card-grid style="width: 100%;" *ngFor="let manager of managers">
+          <div nz-col nzSpan="30">
+            ID: <strong>{{manager.id}}</strong>
+            -
+            Name: <strong>{{manager.name}}</strong>
+            -
+            Email: <strong>{{manager.email}}</strong>
+            -
+            <!-- Password: <strong>{{manager.password}}</strong>
+            - -->
+            Project: <strong>{{manager.projectName}}</strong>
+          </div>
+        </div>
+      </nz-card>
+    </div>
+  </div>
+</div>
