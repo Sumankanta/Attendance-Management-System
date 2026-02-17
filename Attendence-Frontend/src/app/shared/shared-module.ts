@@ -10,6 +10,7 @@ import { NzFormControlComponent, NzFormDirective, NzFormItemComponent } from 'ng
 import { NzRowDirective, NzColDirective } from 'ng-zorro-antd/grid';
 import { NzInputDirective, NzInputGroupComponent } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzInputGroupComponent, // ✅ required
     NzButtonComponent,
     NzIconModule,
+    NzSelectModule
   ],
   exports:[
 
@@ -60,6 +62,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzInputGroupComponent, // ✅ required
     NzButtonComponent,
     NzIconModule,
+    NzSelectModule
   ]
 })
 export class SharedModule { }

@@ -18,4 +18,12 @@ export class Admin {
   getProjects(): Observable<any>{
     return this.http.get(baseUrl + "/api/projects/all");
   }
+
+  addUser(data:any): Observable<any>{
+    return this.http.post(baseUrl + "/api/admin/create-user", data);
+  }
+
+  getManagers(): Observable<any>{
+    return this.http.get(baseUrl + "/api/admin/managers")
+  }
 }

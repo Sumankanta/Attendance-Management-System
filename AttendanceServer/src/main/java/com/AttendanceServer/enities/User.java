@@ -2,10 +2,7 @@ package com.AttendanceServer.enities;
 
 import com.AttendanceServer.dto.UserDTO;
 import com.AttendanceServer.enums.UserRole;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -22,7 +19,11 @@ public class User {
 
     private String name;
 
+    @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
+    @ManyToOne
+    private Project project;
 
     public UserDTO getDto(){
         UserDTO userDTO = new UserDTO();
@@ -31,6 +32,11 @@ public class User {
         userDTO.setName(name);
         userDTO.setUserRole(userRole);
         userDTO.setEmail(email);
+
+        if(project != null){
+            userDTO.setProjectId(project.getId());
+            userDTO.setProjectName(project.getName());
+        }
 
         return userDTO;
     }
