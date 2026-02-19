@@ -1,0 +1,135 @@
+<div class="container-fluid mt-4">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-semibold mb-0">Manager Dashboard</h4>
+
+    <nz-date-picker
+      [(ngModel)]="selectedDate"
+      (ngModelChange)="loadEmployees()"
+    ></nz-date-picker>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <nz-card class="text-center shadow-sm">
+        <h6>Total Employees</h6>
+        <h3>{{ employeeDetail.length }}</h3>
+      </nz-card>
+    </div>
+
+    <div class="col-md-4">
+      <nz-card class="text-center shadow-sm">
+        <h6>Present</h6>
+        <h3 class="text-success">{{ presentCount }}</h3>
+      </nz-card>
+    </div>
+
+    <div class="col-md-4">
+      <nz-card class="text-center shadow-sm">
+        <h6>Absent</h6>
+        <h3 class="text-danger">{{ absentCount }}</h3>
+      </nz-card>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="mb-3">
+    <input
+      nz-input
+      placeholder="Search employee..."
+      [(ngModel)]="searchText"
+    />
+  </div>
+
+  <!-- Attendance Table -->
+  <nz-card nzBordered class="shadow-sm">
+
+    <nz-table
+      #basicTable
+      [nzData]="filteredEmployees()"
+      nzBordered
+      nzSize="middle"
+      [nzLoading]="loading"
+    >
+
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Project</th>
+          <th>Email</th>
+          <th class="text-center">Status</th>
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let emp of basicTable.data">
+
+          <td class="fw-medium">{{ emp.name }}</td>
+
+          <td>{{ emp.projectName }}</td>
+
+          <td>{{ emp.email }}</td>
+
+          <!-- Status Badge -->
+          <td class="text-center">
+            <span
+              class="badge"
+              [ngClass]="{
+                'bg-success': emp.status === 'PRESENT',
+                'bg-danger': emp.status === 'ABSENT',
+                'bg-warning': emp.status === 'LEAVE'
+              }"
+            >
+              {{ emp.status || 'NOT MARKED' }}
+            </span>
+          </td>
+
+          <!-- Action Buttons -->
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-2">
+
+              <button
+                nz-button
+                nzSize="small"
+                nzType="primary"
+                (click)="markAttendance(emp, 'PRESENT')"
+              >
+                Present
+              </button>
+
+              <button
+                nz-button
+                nzDanger
+                nzSize="small"
+                (click)="markAttendance(emp, 'ABSENT')"
+              >
+                Absent
+              </button>
+
+              <button
+                nz-button
+                nzType="default"
+                nzSize="small"
+                (click)="markAttendance(emp, 'LEAVE')"
+              >
+                Leave
+              </button>
+
+            </div>
+          </td>
+
+        </tr>
+      </tbody>
+
+    </nz-table>
+
+    <div *ngIf="!employeeDetail.length && !loading" class="text-center p-3 text-muted">
+      No employees found for this project.
+    </div>
+
+  </nz-card>
+
+</div>

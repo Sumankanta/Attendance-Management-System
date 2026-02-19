@@ -1,75 +1,50 @@
 import { Injectable } from '@angular/core';
 
-const USER = 'att_user'
+const USER = 'att_user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserStorage {
 
-  constructor(){}
-
-  static saveUser(user:any): void{
-    window.localStorage.removeItem(USER);
-    window.localStorage.setItem(USER, JSON.stringify(user));
+  static saveUser(user: any): void {
+    localStorage.setItem(USER, JSON.stringify(user));
   }
 
-  static getUser(): any{
-    return JSON.parse(localStorage.getItem(USER));
+  static getUser(): any {
+    const data = localStorage.getItem(USER);
+    return data ? JSON.parse(data) : null;
   }
 
-  static getUserId(): string{
+  static getUserId(): number | null {
     const user = this.getUser();
-    if(user==null){
-      return '';
-    }
-
-    return user.id;
+    return user ? user.id : null;
   }
 
-    static getUserProjectId(): string{
+  static getUserProjectId(): number | null {
     const user = this.getUser();
-    if(user==null){
-      return '';
-    }
-
-    return user.projectid;
+    // console.log("Project11111111111111111111111111111111111111: ",user);
+    return user ? user.projectId : null;  // ✅ FIXED
   }
 
-    static getUserRole(): string{
+  static getUserRole(): string {
     const user = this.getUser();
-    if(user==null){
-      return '';
-    }
-
-    return user.userRole;
+    return user ? user.userRole : '';
   }
 
-  static isAdminLoggedIn(): boolean{
-    if(this.getUserRole() == ''){
-      return false;
-    }
-    const role:string = this.getUserRole();
-    return role == 'ADMIN';
+  static isAdminLoggedIn(): boolean {
+    return this.getUserRole() === 'ADMIN';
   }
 
-  static isEmployeeLoggedIn(): boolean{
-    if(this.getUserRole() == ''){
-      return false;
-    }
-    const role:string = this.getUserRole();
-    return role == 'EMPLOYEE';
+  static isEmployeeLoggedIn(): boolean {
+    return this.getUserRole() === 'EMPLOYEE';
   }
 
-  static isManagerLoggedIn(): boolean{
-    if(this.getUserRole() == ''){
-      return false;
-    }
-    const role:string = this.getUserRole();
-    return role == 'MANAGER';
+  static isManagerLoggedIn(): boolean {
+    return this.getUserRole() === 'MANAGER';
   }
 
-  static signOut(): void{
-    window.localStorage.removeItem(USER);
+  static signOut(): void {
+    localStorage.removeItem(USER);
   }
 }
