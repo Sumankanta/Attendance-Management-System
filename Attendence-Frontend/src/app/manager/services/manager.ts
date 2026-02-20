@@ -23,4 +23,8 @@ export class Manager {
       `${url}/api/managers/employees/${projectId}`
     );
   }
+
+  markAttendance(attendenceDto:any){
+    return this.http.post(url + "/api/attendance/add", attendenceDto);
+  }
 }
