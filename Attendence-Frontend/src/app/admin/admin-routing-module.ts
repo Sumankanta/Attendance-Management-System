@@ -1,3 +1,4 @@
+import { ManageEmployees } from './components/manage-employees/manage-employees';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminDashboard } from './components/admin-dashboard/admin-dashboard';
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'manage-managers',
     component: ManageManagers
+  },
+  {
+    path: 'manage-employees',
+    component: ManageEmployees
   }
 ];
 

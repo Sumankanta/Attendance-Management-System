@@ -49,5 +49,14 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+
+    @GetMapping("/employee")
+    public ResponseEntity<?> getAllEmployee(){
+        try{
+            return ResponseEntity.ok(adminService.getAllEmployee());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 }
 

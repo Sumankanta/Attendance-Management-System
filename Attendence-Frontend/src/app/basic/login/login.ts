@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { SharedModule } from '../../shared/shared-module';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NzFormControlComponent, NzFormDirective, NzFormItemComponent } from 'ng-zorro-antd/form';
-import { NzInputDirective, NzInputGroupComponent, NzInputWrapperComponent } from 'ng-zorro-antd/input';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { NzIconModule, provideNzIcons } from 'ng-zorro-antd/icon';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // 👉 IMPORT ICONS HERE
-import { UserOutline, LockOutline } from '@ant-design/icons-angular/icons';
 import { Auth } from '../basic-services/auth';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UserStorage } from '../basic-services/user-storage';
@@ -17,8 +12,7 @@ import { Router } from '@angular/router';
   selector: 'app-login',
   standalone: true,
   imports: [
-    SharedModule,
-    // NzInputWrapperComponent
+    SharedModule
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',
@@ -46,6 +40,10 @@ class Login {
 
       if (UserStorage.isAdminLoggedIn()){
         this.router.navigateByUrl('/admin/dashboard')
+      }else if(UserStorage.isEmployeeLoggedIn()){
+        this.router.navigateByUrl('/employee/dashboard')
+      }else if(UserStorage.isManagerLoggedIn()){
+        this.router.navigateByUrl('/manager/dashboard')
       }
         console.log(res);
     }, error => {

@@ -11,6 +11,8 @@ import { NzRowDirective, NzColDirective } from 'ng-zorro-antd/grid';
 import { NzInputDirective, NzInputGroupComponent } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzInputGroupComponent, // ✅ required
     NzButtonComponent,
     NzIconModule,
-    NzSelectModule
+    NzSelectModule,
+    NzTableModule,
+    NzDividerModule
   ],
   exports:[
 
@@ -62,7 +66,9 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzInputGroupComponent, // ✅ required
     NzButtonComponent,
     NzIconModule,
-    NzSelectModule
+    NzSelectModule,
+    NzTableModule,
+    NzDividerModule
   ]
 })
 export class SharedModule { }
