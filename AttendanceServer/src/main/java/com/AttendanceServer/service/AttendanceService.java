@@ -17,7 +17,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -79,5 +81,9 @@ public class AttendanceService {
         } else {
             throw new EntityExistsException("Leave Request Already Applied For Today");
         }
+    }
+
+    public List<LeaveRequestDTO> getAllEmployeeLeaves(Long id){
+        return leaveRequestRepository.findAllByEmployeeId(id).stream().map(LeaveRequest::getDto).collect(Collectors.toList());
     }
 }
