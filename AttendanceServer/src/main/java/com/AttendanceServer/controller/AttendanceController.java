@@ -1,6 +1,7 @@
 package com.AttendanceServer.controller;
 
 import com.AttendanceServer.dto.AttendanceDTO;
+import com.AttendanceServer.dto.LeaveRequestDTO;
 import com.AttendanceServer.service.AttendanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,24 @@ public class AttendanceController {
             return ResponseEntity.ok(attendanceService.markAttendance(attendanceDTO));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/add/leave")
+    public ResponseEntity<?> applyLeave(@RequestBody LeaveRequestDTO leaveRequestDTO){
+        try{
+            return ResponseEntity.ok(attendanceService.applyLeave(leaveRequestDTO));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/leave/employee/{id}")
+    public ResponseEntity<?> getAllEmployeeLeaves(@PathVariable Long id){
+        try{
+            return ResponseEntity.ok(attendanceService.getAllEmployeeLeaves(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }
