@@ -7,6 +7,7 @@ import com.AttendanceServer.enities.User;
 import com.AttendanceServer.repository.AttendanceRepository;
 import com.AttendanceServer.repository.ProjectRepository;
 import com.AttendanceServer.repository.UserRepository;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ public class AttendanceService {
     private final ProjectRepository projectRepository;
 
     public AttendanceDTO markAttendance(AttendanceDTO attendanceDTO){
+        Optional<Attendance> optionalAttendance = attendanceRepository.findByEmployeeIdAndProjectIdAndDate(attendanceDTO.getEmployeeId(), attendanceDTO.getProjectId(), LocalDate.now());
+
+        if(optionalAttendance.isEmpty()){
         Optional<User> optionalEmployee = userRepository.findById(attendanceDTO.getEmployeeId());
         Optional<User> optionalManager = userRepository.findById(attendanceDTO.getManagerId());
         Optional<Project> optionalProject = projectRepository.findById(attendanceDTO.getProjectId());
@@ -39,6 +43,9 @@ public class AttendanceService {
             return attendanceRepository.save(attendance).getDto();
         }else {
             throw new EntityNotFoundException("Some Related Entity Not Found");
+        }
+        }else{
+            throw new EntityExistsException("Attendance Already Marked For Today");
         }
     }
 }

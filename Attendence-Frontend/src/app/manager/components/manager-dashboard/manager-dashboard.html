@@ -1,13 +1,9 @@
 <div class="container-fluid mt-4">
-
   <!-- Header -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h4 class="fw-semibold mb-0">Manager Dashboard</h4>
 
-    <nz-date-picker
-      [(ngModel)]="selectedDate"
-      (ngModelChange)="loadEmployees()"
-    ></nz-date-picker>
+    <nz-date-picker [(ngModel)]="selectedDate" (ngModelChange)="loadEmployees()"></nz-date-picker>
   </div>
 
   <!-- Summary Cards -->
@@ -36,16 +32,11 @@
 
   <!-- Search -->
   <div class="mb-3">
-    <input
-      nz-input
-      placeholder="Search employee..."
-      [(ngModel)]="searchText"
-    />
+    <input nz-input placeholder="Search employee..." [(ngModel)]="searchText" />
   </div>
 
   <!-- Attendance Table -->
   <nz-card nzBordered class="shadow-sm">
-
     <nz-table
       #basicTable
       [nzData]="filteredEmployees()"
@@ -53,7 +44,6 @@
       nzSize="middle"
       [nzLoading]="loading"
     >
-
       <thead>
         <tr>
           <th>Name</th>
@@ -66,7 +56,6 @@
 
       <tbody>
         <tr *ngFor="let emp of basicTable.data">
-
           <td class="fw-medium">{{ emp.name }}</td>
 
           <td>{{ emp.projectName }}</td>
@@ -80,7 +69,7 @@
               [ngClass]="{
                 'bg-success': emp.status === 'PRESENT',
                 'bg-danger': emp.status === 'ABSENT',
-                'bg-warning': emp.status === 'LEAVE'
+                'bg-warning': emp.status === 'LEAVE',
               }"
             >
               {{ emp.status || 'NOT MARKED' }}
@@ -90,22 +79,18 @@
           <!-- Action Buttons -->
           <td class="text-center">
             <div class="d-flex justify-content-center gap-2">
-
               <button
                 nz-button
                 nzSize="small"
                 nzType="primary"
+                [disabled]="emp.status"
                 (click)="markAttendance(emp, 'PRESENT')"
               >
                 Present
               </button>
 
-              <button
-                nz-button
-                nzDanger
-                nzSize="small"
-                (click)="markAttendance(emp, 'ABSENT')"
-              >
+              <button nz-button nzDanger nzSize="small"
+              [disabled]="emp.status" (click)="markAttendance(emp, 'ABSENT')">
                 Absent
               </button>
 
@@ -113,23 +98,19 @@
                 nz-button
                 nzType="default"
                 nzSize="small"
+                [disabled]="emp.status"
                 (click)="markAttendance(emp, 'LEAVE')"
               >
                 Leave
               </button>
-
             </div>
           </td>
-
         </tr>
       </tbody>
-
     </nz-table>
 
     <div *ngIf="!employeeDetail.length && !loading" class="text-center p-3 text-muted">
       No employees found for this project.
     </div>
-
   </nz-card>
-
 </div>

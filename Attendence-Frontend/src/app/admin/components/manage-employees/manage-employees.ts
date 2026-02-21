@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { SharedModule } from '../../../shared/shared-module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { email } from '@angular/forms/signals';
 import { Admin } from '../../services/admin';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
